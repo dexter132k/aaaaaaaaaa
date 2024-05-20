@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integração Contínua com HTML e Python</title>
+</head>
+<body>
+    <h1>Exemplo de Integração Contínua com HTML e Python</h1>
+    <p id="output"></p>
+
+    <script src="script.py"></script>
+  name: Integração Contínua
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout do código
+      uses: actions/checkout@v2
+
+    - name: Configuração do Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Instalar dependências Python
+      run: pip install -r requirements.txt
+
+    - name: Executar script Python
+      run: python projeto/script.py
+
+    - name: Commit e push das alterações
+      run: |
+        git config --global user.email "actions@github.com"
+        git config --global user.name "GitHub Actions"
+        git add index.html
+        git commit -m "Atualizar index.html via CI"
+        git push
+        name: Integração Contínua
+        
+
+</body>
+</html>
